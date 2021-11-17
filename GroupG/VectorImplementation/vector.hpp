@@ -329,10 +329,23 @@ public:
 			return *this;
 		}
 
+		iterator& operator -= (int offset)
+		{
+			pointer -= offset;
+			return *this;
+		}
+
 		iterator operator + (int offset)
 		{
 			iterator copy(*this);
 			copy += offset;
+			return copy;
+		}
+
+		iterator operator - (int offset)
+		{
+			iterator copy(*this);
+			copy -= offset;
 			return copy;
 		}
 
@@ -366,13 +379,13 @@ public:
 	{
 		if (pos == this->end() && this->m_size == this->m_capacity)
 		{
-			int newCapacity = (this->m_capacity == 0) ? 2 : this->m_capacity*2;
+			int newCapacity = (this->m_capacity == 0) ? 2 : this->m_capacity * 2;
 			this->reserve(newCapacity);
 		}
 
-		for (iterator it = this->end(); it >= pos; --it)
+		for (iterator it = this->end(); it != pos; --it)
 		{
-			*(it + 1) = *it;
+			*it = *(it - 1);
 		}
 		*pos = value;
 		++this->m_size;
@@ -380,20 +393,18 @@ public:
 
 	void erase(iterator pos)
 	{
-		for (iterator it = pos; it != this->end(); ++it)
-		{
-			*it = *(it+1);
-		}
-		--this->m_size;
+		this->erase(pos, pos + 1);
 	}
 
 	void erase(iterator first, iterator last)
 	{
 		int difference = last.pointer - first.pointer;
-		for (iterator it = first; it != last; ++it)
+
+		for (iterator it = first; it != this->end(); ++it)
 		{
-			*it = *(it+difference);
+			*it = *(it + difference);
 		}
+
 		this->m_size -= difference;
 	}
 };
