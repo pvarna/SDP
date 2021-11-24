@@ -1,6 +1,7 @@
 #pragma once
 
-#include "mem_inspect.hpp"
+#include "../common/mem_inspect.hpp"
+#include "../common/type_traits.hpp"
 
 // if you comment out the next line, the tests will run on std::vector instead
 // Make sure all tests pass on std::vector before trying to test your implementation
@@ -14,13 +15,13 @@
 
 /// Example:
 
-inline void test_allocation() {
-	int *arr = NEW(int, 12);
-	for (int c = 0; c < 12; c++) {
-		arr[c] = c;
-	}
-	DELETE(arr);
-}
+// inline void test_allocation() {
+// 	int *arr = NEW(int, 12);
+// 	for (int c = 0; c < 12; c++) {
+// 		arr[c] = c;
+// 	}
+// 	DELETE(arr);
+// }
 
 template <typename T>
 struct vector 
