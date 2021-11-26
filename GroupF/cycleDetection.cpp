@@ -71,30 +71,26 @@ void free_singly_linked_list(SinglyLinkedListNode* node) {
 
 bool has_cycle(SinglyLinkedListNode* head) 
 {
-    // if (head == nullptr || head->next == nullptr)
-    // {
-    //     return false;
-    // }
-
     SinglyLinkedListNode* temp = head;
     std::set<SinglyLinkedListNode*> visitedNodes;
 
+    std::size_t counter = 0;
     while (temp)
     {
-        if (visitedNodes.find(temp) != visitedNodes.end()) // contains
+        visitedNodes.insert(temp);
+        ++counter;
+
+        if (visitedNodes.size() < counter)
         {
             return true;
         }
-        visitedNodes.insert(temp);
+
         temp = temp->next;
     }
 
     return false;
 }
 
-int main ()
-{
-    std::cout << "aloo" << std::endl;
-
-    return 0;
-}
+// 1 -> 2 -> 3 -> 4
+//           |    |
+//           ------
